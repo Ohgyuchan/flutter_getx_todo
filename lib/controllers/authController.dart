@@ -6,18 +6,19 @@ import 'package:todo_app/services/database.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  Rx<FirebaseUser> _firebaseUser = Rx<FirebaseUser>();
+  Rx<User> _firebaseUser;
 
-  FirebaseUser get user => _firebaseUser.value;
+  User get user => _firebaseUser.value;
 
   @override
   onInit() {
-    _firebaseUser.bindStream(_auth.onAuthStateChanged);
+    _firebaseUser.bindStream(_auth.authStateChanges());
+    super.onInit();
   }
 
   void createUser(String name, String email, String password) async {
     try {
-      AuthResult _authResult = await _auth.createUserWithEmailAndPassword(
+      UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
       //create user in database.dart
       UserModel _user = UserModel(
@@ -40,7 +41,7 @@ class AuthController extends GetxController {
 
   void login(String email, String password) async {
     try {
-      AuthResult _authResult = await _auth.signInWithEmailAndPassword(
+      UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
       Get.find<UserController>().user =
           await Database().getUser(_authResult.user.uid);

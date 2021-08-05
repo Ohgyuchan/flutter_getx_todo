@@ -16,9 +16,9 @@ class TodoModel {
   TodoModel.fromDocumentSnapshot(
     DocumentSnapshot documentSnapshot,
   ) {
-    todoId = documentSnapshot.documentID;
-    content = documentSnapshot.data["content"];
-    dateCreated = documentSnapshot.data["dateCreated"];
-    done = documentSnapshot.data["done"];
+    todoId = documentSnapshot.id;
+    content = documentSnapshot["content"];
+    dateCreated = documentSnapshot["dateCreated"];
+    done = documentSnapshot["done"];
   }
 }
