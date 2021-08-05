@@ -31,14 +31,14 @@ class Login extends GetWidget<AuthController> {
                 controller: passwordController,
                 obscureText: true,
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Log In"),
                 onPressed: () {
                   controller.login(
                       emailController.text, passwordController.text);
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Sign Up"),
                 onPressed: () {
                   Get.to(SignUp());
