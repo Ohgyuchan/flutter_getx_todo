@@ -51,7 +51,7 @@ class Database {
         .orderBy("dateCreated", descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
-      List<TodoModel> retVal = List();
+      List<TodoModel> retVal = [];
       query.docs.forEach((element) {
         retVal.add(TodoModel.fromDocumentSnapshot(element));
       });
